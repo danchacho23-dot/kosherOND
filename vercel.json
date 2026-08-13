@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "comment": "Aviso de supervisiones kosher por vencer. 13:00 UTC = 08:00 en Panamá.",
+      "path": "/api/cron/supervisiones",
+      "schedule": "0 13 * * *"
+    }
+  ]
+}
