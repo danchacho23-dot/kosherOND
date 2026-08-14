@@ -20,3 +20,6 @@ next-env.d.ts
 
 # Estado de sesión generado por los e2e: contiene un token de sesión.
 tests/e2e/.auth/
+
+# Capturas de pantalla generadas a mano, no son parte del producto.
+.screenshots/
