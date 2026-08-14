@@ -75,7 +75,7 @@ export function HoursEditor({
                   ) : (
                     <div className="mt-2 space-y-2">
                       {entries.map(({ range, index }) => (
-                        <div key={index} className="flex items-center gap-2">
+                        <div key={index} className="flex min-w-0 items-center gap-2">
                           <Input
                             type="time"
                             aria-label={`${dayLabel}: abre`}
@@ -100,6 +100,7 @@ export function HoursEditor({
                           <Button
                             variant="ghost"
                             size="icon"
+                            className="shrink-0"
                             aria-label={`Quitar turno de ${dayLabel}`}
                             onClick={() =>
                               setRanges((current) => current.filter((_, i) => i !== index))

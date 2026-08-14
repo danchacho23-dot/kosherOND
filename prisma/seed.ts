@@ -32,7 +32,7 @@ const NEIGHBORHOODS = [
   { slug: "el-cangrejo", name: "El Cangrejo", sortOrder: 60 },
 ];
 
-/** Lunes a jueves 08–18, viernes 08–14, domingo 09–15. Sábado nunca. */
+/** Comercio de barrio: domingo a jueves 08–18, viernes 08–14. Sábado nunca. */
 const STANDARD_HOURS = [
   { dayOfWeek: 0, opensAt: 9 * 60, closesAt: 15 * 60 },
   { dayOfWeek: 1, opensAt: 8 * 60, closesAt: 18 * 60 },
@@ -40,6 +40,16 @@ const STANDARD_HOURS = [
   { dayOfWeek: 3, opensAt: 8 * 60, closesAt: 18 * 60 },
   { dayOfWeek: 4, opensAt: 8 * 60, closesAt: 18 * 60 },
   { dayOfWeek: 5, opensAt: 8 * 60, closesAt: 14 * 60 },
+];
+
+/** Restaurante: abre al mediodía y cierra tarde. Viernes solo almuerzo. */
+const DINNER_HOURS = [
+  { dayOfWeek: 0, opensAt: 12 * 60, closesAt: 23 * 60 },
+  { dayOfWeek: 1, opensAt: 12 * 60, closesAt: 23 * 60 },
+  { dayOfWeek: 2, opensAt: 12 * 60, closesAt: 23 * 60 },
+  { dayOfWeek: 3, opensAt: 12 * 60, closesAt: 23 * 60 },
+  { dayOfWeek: 4, opensAt: 12 * 60, closesAt: 23 * 60 },
+  { dayOfWeek: 5, opensAt: 12 * 60, closesAt: 15 * 60 },
 ];
 
 interface DemoMerchant {
@@ -58,6 +68,8 @@ interface DemoMerchant {
   orderChannels: OrderChannel[];
   websiteUrl: string | null;
   isFeatured: boolean;
+  /** Si no se especifica, usa STANDARD_HOURS. */
+  hours?: Array<{ dayOfWeek: number; opensAt: number; closesAt: number }>;
   products?: Array<{ name: string; priceCents: number | null; dietTag?: "MEAT" | "DAIRY" | "PAREVE" }>;
 }
 
@@ -124,7 +136,8 @@ const MERCHANTS: DemoMerchant[] = [
     deliveryAreaText: "Obarrio, El Cangrejo y Bella Vista.",
     orderChannels: ["WHATSAPP", "WEBSITE", "PHONE"],
     websiteUrl: "https://ejemplo-demo-tavlin.test",
-    isFeatured: false,
+    isFeatured: true,
+    hours: DINNER_HOURS,
   },
   {
     slug: "demo-super-hamigdal",
@@ -280,8 +293,17 @@ async function main() {
         isFeatured: merchant.isFeatured,
         searchText,
         isSeedData: true,
-        hours: { createMany: { data: STANDARD_HOURS } },
       },
+    });
+
+    // El horario se reescribe en cada corrida: el seed tiene que ser idempotente
+    // aunque el comercio ya existiera de una corrida anterior.
+    await prisma.merchantHours.deleteMany({ where: { merchantId: created.id } });
+    await prisma.merchantHours.createMany({
+      data: (merchant.hours ?? STANDARD_HOURS).map((range) => ({
+        ...range,
+        merchantId: created.id,
+      })),
     });
 
     if (merchant.products?.length) {

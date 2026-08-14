@@ -63,3 +63,33 @@ test.describe("Directorio", () => {
     await expect(page.getByText(/no procesa el pedido ni el pago/i).first()).toBeVisible();
   });
 });
+
+/**
+ * Producto mobile-first: ninguna página puede forzar scroll horizontal.
+ *
+ * Este test existe porque el header lo hacía en TODOS los anchos de teléfono, y
+ * no se veía en las capturas de página completa (que se expanden al ancho del
+ * contenido, y por eso lo tapan).
+ */
+test.describe("Sin desborde horizontal", () => {
+  const ANCHOS = [320, 360, 390, 412];
+  const RUTAS = ["/", "/directorio", "/comercio/demo-panaderia-shalom", "/aplicar"];
+
+  for (const width of ANCHOS) {
+    test(`a ${width}px de ancho`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+
+      for (const ruta of RUTAS) {
+        await page.goto(ruta);
+        const medidas = await page.evaluate(() => ({
+          scroll: document.documentElement.scrollWidth,
+          client: document.documentElement.clientWidth,
+        }));
+        expect(
+          medidas.scroll,
+          `${ruta} desborda ${medidas.scroll - medidas.client}px a ${width}px de ancho`,
+        ).toBeLessThanOrEqual(medidas.client);
+      }
+    });
+  }
+});

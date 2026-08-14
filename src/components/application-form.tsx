@@ -342,7 +342,11 @@ export function ApplicationForm({
                 <div className="mt-2 space-y-2">
                   {hours[day].map((range, index) => (
                     <div key={index} className="flex items-end gap-2">
-                      <div className="flex-1">
+                      {/* `min-w-0` en los campos y `shrink-0` en el botón: sin eso
+                          los inputs de hora no bajan de su ancho intrínseco y el
+                          botón de quitar se sale de la pantalla en teléfonos
+                          angostos. */}
+                      <div className="min-w-0 flex-1">
                         <Label htmlFor={`abre-${day}-${index}`} className="text-xs">
                           {copy.apply.fields.opensAt}
                         </Label>
@@ -356,7 +360,7 @@ export function ApplicationForm({
                           className="mt-1"
                         />
                       </div>
-                      <div className="flex-1">
+                      <div className="min-w-0 flex-1">
                         <Label htmlFor={`cierra-${day}-${index}`} className="text-xs">
                           {copy.apply.fields.closesAt}
                         </Label>
@@ -373,6 +377,7 @@ export function ApplicationForm({
                       <Button
                         variant="ghost"
                         size="icon"
+                        className="shrink-0"
                         aria-label={`${copy.apply.fields.removeRange} ${dayLabel}`}
                         onClick={() =>
                           setHours((current) => ({
