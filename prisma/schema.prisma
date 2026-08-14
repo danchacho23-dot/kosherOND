@@ -418,6 +418,37 @@ model MerchantApplication {
 }
 
 // ---------------------------------------------------------------------------
+// Avisos de Shabat (Web Push)
+// ---------------------------------------------------------------------------
+
+/// Suscripción a los avisos de cierre por Shabat y jaguim.
+///
+/// Es el único identificador persistente que guarda el producto de un visitante,
+/// y existe solo porque sin él no hay forma técnica de mandar un aviso. No hay
+/// cuenta asociada, no se cruza con analítica, y se borra sola cuando el
+/// navegador la da de baja. Está declarado en la política de privacidad.
+model PushSubscription {
+  id       String @id @default(cuid())
+  /// URL del servicio de push del navegador. Identifica al dispositivo.
+  endpoint String @unique
+  p256dh   String
+  auth     String
+
+  /// Minutos antes del encendido de velas en que se quiere el aviso.
+  leadMinutes Int @default(120)
+
+  /// Encendido de velas del último cierre ya avisado, para no repetir.
+  lastNotifiedFor DateTime?
+  /// Envíos fallidos seguidos. A partir de cierto punto se descarta la fila.
+  failureCount    Int       @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([lastNotifiedFor])
+}
+
+// ---------------------------------------------------------------------------
 // Analítica y auditoría
 // ---------------------------------------------------------------------------
 

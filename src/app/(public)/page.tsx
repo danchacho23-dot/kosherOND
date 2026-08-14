@@ -4,6 +4,7 @@ import { Alert, EmptyState } from "@/components/ui/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { MerchantCardGrid } from "@/components/merchant-card";
 import { SearchForm } from "@/components/search-form";
+import { ShabbatReminder } from "@/components/shabbat-reminder";
 import { CategoryIcon } from "@/components/category-icon";
 import { copy } from "@/lib/copy";
 import { recordEventAsync } from "@/lib/analytics";
@@ -121,6 +122,12 @@ export default async function HomePage() {
               </Link>
             }
           />
+        ) : null}
+
+        {/* Los avisos son la única función que exige app instalada; por eso el
+            bloque solo aparece si el servidor tiene Web Push configurado. */}
+        {process.env.VAPID_PUBLIC_KEY ? (
+          <ShabbatReminder publicKey={process.env.VAPID_PUBLIC_KEY} />
         ) : null}
 
         <Alert>{copy.home.disclaimer}</Alert>

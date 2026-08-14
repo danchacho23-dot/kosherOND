@@ -51,6 +51,23 @@ export default function PrivacyPage() {
         </section>
 
         <section>
+          <h2 className="text-lg font-semibold text-ink-900">Avisos de Shabat</h2>
+          <p className="mt-2">
+            Si activás los avisos de cierre por Shabat, guardamos la suscripción de
+            notificaciones que crea tu navegador: una dirección técnica del servicio de push
+            y las claves para cifrar el mensaje. Es el único identificador persistente que
+            guardamos de un visitante, y existe solo porque sin él no hay forma de mandarte
+            un aviso. No está asociado a ninguna cuenta, no lo cruzamos con las métricas y no
+            lo compartimos con nadie.
+          </p>
+          <p className="mt-2">
+            Se borra apenas desactivás los avisos, y también solo si tu navegador da de baja
+            la suscripción. Los únicos mensajes que mandamos son el aviso de cierre por
+            Shabat y por jaguim. No mandamos promociones.
+          </p>
+        </section>
+
+        <section>
           <h2 className="text-lg font-semibold text-ink-900">Documentos de certificación</h2>
           <p className="mt-2">
             Los documentos de supervisión kosher se guardan en almacenamiento privado y no

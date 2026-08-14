@@ -5,6 +5,11 @@
       "comment": "Aviso de supervisiones kosher por vencer. 13:00 UTC = 08:00 en Panamá.",
       "path": "/api/cron/supervisiones",
       "schedule": "0 13 * * *"
+    },
+    {
+      "comment": "Avisos de cierre por Shabat y jaguim. Cada hora: cada suscripción elige su anticipo.",
+      "path": "/api/cron/recordatorios",
+      "schedule": "0 * * * *"
     }
   ]
 }

@@ -44,7 +44,7 @@ que **bloquea el lanzamiento de la funcionalidad de supervisión**.
 | Validación | Zod en todo borde de entrada externa |
 | Tests | Vitest (unitarios) + Playwright (3 e2e) |
 | Deploy | Vercel |
-| Móvil | PWA instalable en Android e iOS — ver [`MOBILE.md`](./MOBILE.md) |
+| Móvil | PWA instalable + avisos de Shabat por Web Push — ver [`MOBILE.md`](./MOBILE.md) |
 
 Sin adaptadores de pago. Sin colas. Sin capa de proveedores para WhatsApp: un deep link no
 necesita adaptador.
@@ -90,6 +90,7 @@ npm run dev
 | `npm run db:deploy` | Migraciones en producción |
 | `npm run db:seed` | Datos de demostración |
 | `npm run db:seed:clear` | **Borra los datos ficticios.** Gate de lanzamiento |
+| `npx web-push generate-vapid-keys` | Claves para los avisos de Shabat |
 
 ---
 

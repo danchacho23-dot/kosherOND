@@ -214,6 +214,20 @@ export const copy = {
     },
   },
 
+  reminders: {
+    title: "Avisos antes de Shabat",
+    body: "Te avisamos un par de horas antes del encendido de velas, así llegás a comprar. Nada más: no mandamos promociones.",
+    onTitle: "Avisos activados",
+    onBody: "Te vamos a avisar antes de cada Shabat y de cada jag.",
+    turnOn: "Activar avisos",
+    turningOn: "Activando…",
+    turnOff: "Desactivar",
+    blocked:
+      "Bloqueaste las notificaciones para este sitio. Se activan de nuevo desde la configuración del navegador.",
+    iosInstall:
+      "En iPhone los avisos funcionan solo con la app instalada: tocá Compartir y después “Agregar a pantalla de inicio”.",
+  },
+
   legal: {
     termsTitle: "Términos de uso",
     privacyTitle: "Política de privacidad",

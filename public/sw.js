@@ -65,3 +65,48 @@ self.addEventListener("fetch", (event) => {
 
   // Todo lo demás (API, /ir, imágenes remotas) pasa derecho a la red.
 });
+
+/* -------------------------------------------------------------------------
+ * Avisos de cierre por Shabat y jaguim.
+ * ---------------------------------------------------------------------- */
+
+self.addEventListener("push", (event) => {
+  if (!event.data) return;
+
+  let payload;
+  try {
+    payload = event.data.json();
+  } catch {
+    return;
+  }
+
+  event.waitUntil(
+    self.registration.showNotification(payload.title || "KosherOnDemand", {
+      body: payload.body || "",
+      icon: "/icon-192.png",
+      badge: "/icon-maskable-192.png",
+      // Un aviso por cierre: si llega repetido, reemplaza en vez de apilar.
+      tag: payload.tag || "kod-aviso",
+      renotify: false,
+      data: { url: payload.url || "/" },
+    }),
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const target = (event.notification.data && event.notification.data.url) || "/";
+
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      // Si la app ya está abierta se reusa esa ventana en vez de abrir otra.
+      for (const client of clients) {
+        if ("focus" in client) {
+          client.navigate(target);
+          return client.focus();
+        }
+      }
+      return self.clients.openWindow(target);
+    }),
+  );
+});
