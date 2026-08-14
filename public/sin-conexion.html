@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es-PA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sin conexión · KosherOnDemand</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        background: #faf9f7;
+        color: #1a1713;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        text-align: center;
+      }
+      .mark {
+        width: 3rem;
+        height: 3rem;
+        margin: 0 auto 1rem;
+        display: grid;
+        place-items: center;
+        border-radius: 0.75rem;
+        background: #0f7f68;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+      h1 { font-size: 1.125rem; margin: 0 0 0.5rem; }
+      p { color: #5c5549; margin: 0 0 1.25rem; line-height: 1.6; max-width: 26rem; }
+      button {
+        padding: 0.75rem 1.25rem;
+        border: 0;
+        border-radius: 0.5rem;
+        background: #0f7f68;
+        color: #fff;
+        font: inherit;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="mark" aria-hidden="true">K</div>
+      <h1>Sin conexión</h1>
+      <!-- Se muestra la causa real en vez de contenido viejo: los horarios
+           guardados en caché podrían decir "abierto" un sábado. -->
+      <p>
+        No pudimos cargar el directorio. Los horarios cambian a cada rato, así que
+        preferimos no mostrarte información vieja.
+      </p>
+      <button onclick="location.reload()">Reintentar</button>
+    </div>
+  </body>
+</html>

@@ -20,6 +20,10 @@ Un directorio, no un marketplace. Tres decisiones lo definen:
    pública no dice *nada* sobre supervisión — ni un badge negativo, ni "informado por el
    comercio". El silencio es la única postura defendible.
 
+**Es una web app, no una app nativa.** Se instala en el celular desde el navegador y se ve como
+una app, pero no está en App Store ni en Play Store. Las opciones para llegar ahí, con costos y
+riesgos, están en [`MOBILE.md`](./MOBILE.md).
+
 Lo que queda afuera del MVP y por qué está en [`DECISIONS.md`](./DECISIONS.md). Lo que todavía
 no se decidió está en [`OPEN_DECISIONS.md`](./OPEN_DECISIONS.md) — y hay una decisión abierta
 que **bloquea el lanzamiento de la funcionalidad de supervisión**.
@@ -40,6 +44,7 @@ que **bloquea el lanzamiento de la funcionalidad de supervisión**.
 | Validación | Zod en todo borde de entrada externa |
 | Tests | Vitest (unitarios) + Playwright (3 e2e) |
 | Deploy | Vercel |
+| Móvil | PWA instalable en Android e iOS — ver [`MOBILE.md`](./MOBILE.md) |
 
 Sin adaptadores de pago. Sin colas. Sin capa de proveedores para WhatsApp: un deep link no
 necesita adaptador.
